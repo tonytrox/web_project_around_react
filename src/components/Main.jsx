@@ -1,154 +1,57 @@
-function Main() {
-  const handleEditAvatarClick = () => {
-    const popupEditAvatar = document.querySelector("#popup-edit-avatar");
-    popupEditAvatar.classList.toggle("popup_opened");
-  };
+import api from "../utils/Api.js";
+import { useState, useEffect } from "react";
 
-  const handleEditProfileClick = () => {
-    const popupEditProfile = document.querySelector("#popup-edit-profile");
-    popupEditProfile.classList.toggle("popup_opened");
-  };
+function Main({ onEditProfileClick, onAddPlaceClick, onEditAvatarClick }) {
+  const [userName, setUserName] = useState("");
+  const [userDescription, setUserDescription] = useState("");
+  const [userAvatar, setUserAvatar] = useState("");
 
-  const handleAddPlaceClick = () => {
-    const popupAddPlace = document.querySelector("#popup-add-place");
-    popupAddPlace.classList.toggle("popup_opened");
-  };
+  useEffect(() => {
+    const getUserInfo = async () => {
+      try {
+        const user = await api.getInfoProfile();
+        setUserName(user.name);
+        setUserDescription(user.about);
+        setUserAvatar(user.avatar);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getUserInfo();
+  }, []); // El array vacío asegura que solo se ejecute una vez al montar el componente.
 
   return (
     <main className="content">
       <section className="profile">
-        <div className="profile__avatar">
+        <div className="avatar__container">
           <img
-            className="profile__image"
-            src="<%= require('./images/jacques.png')%>"
+            className="avatar__image"
+            src={userAvatar}
             alt="profile avatar"
           ></img>
-          <button
-            onClick={handleEditAvatarClick}
-            className="profile__edit-avatar"
-          ></button>
+          <div
+            onClick={onEditAvatarClick}
+            className="avatar__edit-button"
+          ></div>
         </div>
+
         <div className="profile__info">
-          <h1 className="profile__title">Cousteau</h1>
-          <h2 className="profile__description">Explorador</h2>
+          <h1 className="profile__title">{userName}</h1>
+          <h2 className="profile__description">{userDescription}</h2>
           <button
-            onClick={handleEditProfileClick}
+            onClick={onEditProfileClick}
             className="profile__edit-button"
           ></button>
         </div>
         <button
-          onClick={handleAddPlaceClick}
+          onClick={onAddPlaceClick}
           className="profile__add-button"
         ></button>
       </section>
       <section className="elements">
         <ul className="elements__list"></ul>
       </section>
-
-      <div className="popup" id="popup-edit-profile">
-        <div className="popup__container">
-          <form className="form popup__form" id="form_edit-profile" novalidate>
-            <button
-              type="button"
-              class="form__exit-button"
-              id="form__exit-button"
-            ></button>
-            <h2 className="form__title">Editar perfil</h2>
-            <input
-              className="form__name popup__input"
-              id="form__name"
-              type="text"
-              name="name"
-              placeholder="Nombre"
-              maxlength="40"
-              minlength="2"
-              required
-            />
-            <span className="popup__error form__name-error"></span>
-            <input
-              className="form__description popup__input"
-              id="form__description"
-              type="text"
-              name="description"
-              placeholder="Descripción"
-              maxlength="200"
-              minlength="2"
-              required
-            />
-            <span className="popup__error form__description-error"></span>
-            <button
-              className="popup__button form__save-button"
-              id="save_profile"
-            >
-              Guardar
-            </button>
-          </form>
-        </div>
-      </div>
-
-      <div className="popup" id="popup-edit-avatar">
-        <div className="popup__container-edit-avatar">
-          <form className="form popup__form" id="form_edit-avatar" novalidate>
-            <button
-              type="button"
-              className="form__exit-button"
-              id="form__exit-button"
-            ></button>
-            <h2 className="form__title">Cambiar foto de perfil</h2>
-            <input
-              className="form__image-link popup__input"
-              id="form__image-link"
-              type="url"
-              name="link"
-              placeholder="Enlace de la imagen"
-              required
-            />
-            <span className="popup__error form__image-link-error"></span>
-            <button
-              className="popup__button form__save-button"
-              id="save_avatar"
-            >
-              Guardar
-            </button>
-          </form>
-        </div>
-      </div>
-
-      <div className="popup" id="popup-add-place">
-        <div className="popup__container">
-          <form className="form popup__form" id="form_add-element" novalidate>
-            <button
-              type="button"
-              className="form__exit-button"
-              id="form__exit-button"
-            ></button>
-            <h2 className="form__title">Nuevo lugar</h2>
-            <input
-              className="form__place popup__input"
-              id="form__place"
-              type="text"
-              name="place"
-              placeholder="Título"
-              minlength="2"
-              maxlength="30"
-              required
-            />
-            <span className="popup__error form__place-error"></span>
-            <input
-              className="form__image-link popup__input"
-              id="form__image-link"
-              type="url"
-              name="link"
-              placeholder="Enlace de la imagen"
-              required
-            />
-            <span className="popup__error form__image-link-error"></span>
-            <button className="popup__button form__save-button" id="save_place">
-              Crear
-            </button>
-          </form>
-        </div>
-      </div>
 
       <div class="popup" id="popup-confirm-card">
         <div class="popup__container-confirm-card">
