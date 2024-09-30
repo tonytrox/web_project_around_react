@@ -5,6 +5,7 @@ function Main({ onEditProfileClick, onAddPlaceClick, onEditAvatarClick }) {
   const [userName, setUserName] = useState("");
   const [userDescription, setUserDescription] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -17,9 +18,22 @@ function Main({ onEditProfileClick, onAddPlaceClick, onEditAvatarClick }) {
         console.log(err);
       }
     };
-
     getUserInfo();
   }, []); // El array vacío asegura que solo se ejecute una vez al montar el componente.
+
+  useEffect(() => {
+    const getInitialCards = async () => {
+      try {
+        const cards = await api.getInitialCards();
+        setCards(cards);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getInitialCards();
+  }, []);
+
+  // Función para renderizar las tarjetas
 
   return (
     <main className="content">
@@ -50,7 +64,23 @@ function Main({ onEditProfileClick, onAddPlaceClick, onEditAvatarClick }) {
         ></button>
       </section>
       <section className="elements">
-        <ul className="elements__list"></ul>
+        <ul className="elements__list">
+          {cards.map((card) => (
+            <li class="element__card">
+              <div class="element__container">
+                <img class="element__img" src={card.link} alt={card.name} />
+                <div class="element__description">
+                  <h2 class="element__text">{card.name}</h2>
+                  <div class="element__container-like">
+                    <button class="element__like-button"></button>
+                    <p class="element__counter">{card.likes.length}</p>
+                  </div>
+                  <button class="element__remove-button"></button>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <div class="popup" id="popup-confirm-card">
