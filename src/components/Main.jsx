@@ -1,4 +1,5 @@
 import api from "../utils/Api.js";
+import Card from "./Card.jsx";
 import { useState, useEffect } from "react";
 
 function Main({ onEditProfileClick, onAddPlaceClick, onEditAvatarClick }) {
@@ -66,24 +67,12 @@ function Main({ onEditProfileClick, onAddPlaceClick, onEditAvatarClick }) {
       <section className="elements">
         <ul className="elements__list">
           {cards.map((card) => (
-            <li class="element__card">
-              <div class="element__container">
-                <img class="element__img" src={card.link} alt={card.name} />
-                <div class="element__description">
-                  <h2 class="element__text">{card.name}</h2>
-                  <div class="element__container-like">
-                    <button class="element__like-button"></button>
-                    <p class="element__counter">{card.likes.length}</p>
-                  </div>
-                  <button class="element__remove-button"></button>
-                </div>
-              </div>
-            </li>
+            <Card name={card.name} link={card.link} likes={card.likes} />
           ))}
         </ul>
       </section>
 
-      <div class="popup" id="popup-confirm-card">
+      {/* <div class="popup" id="popup-confirm-card">
         <div class="popup__container-confirm-card">
           <button
             class="popup__exit-button"
@@ -95,9 +84,9 @@ function Main({ onEditProfileClick, onAddPlaceClick, onEditAvatarClick }) {
             S&iacute;
           </button>
         </div>
-      </div>
+      </div> */}
 
-      <div class="popup" id="popup-image">
+      {/* <div class="popup" id="popup-image">
         <div class="popup__container-images">
           <button
             class="popup__exit-button"
@@ -107,7 +96,7 @@ function Main({ onEditProfileClick, onAddPlaceClick, onEditAvatarClick }) {
           <img class="popup__img" id="popup__image" src="#" alt="" />
           <h3 class="popup__text" id="popup__caption"></h3>
         </div>
-      </div>
+      </div> */}
     </main>
   );
 }
