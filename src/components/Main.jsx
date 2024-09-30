@@ -2,7 +2,12 @@ import api from "../utils/Api.js";
 import Card from "./Card.jsx";
 import { useState, useEffect } from "react";
 
-function Main({ onEditProfileClick, onAddPlaceClick, onEditAvatarClick }) {
+function Main({
+  onEditProfileClick,
+  onAddPlaceClick,
+  onEditAvatarClick,
+  onCardClick,
+}) {
   const [userName, setUserName] = useState("");
   const [userDescription, setUserDescription] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
@@ -67,7 +72,13 @@ function Main({ onEditProfileClick, onAddPlaceClick, onEditAvatarClick }) {
       <section className="elements">
         <ul className="elements__list">
           {cards.map((card) => (
-            <Card name={card.name} link={card.link} likes={card.likes} />
+            <Card
+              name={card.name}
+              link={card.link}
+              likes={card.likes}
+              onCardClick={onCardClick}
+              card={card}
+            />
           ))}
         </ul>
       </section>
@@ -83,18 +94,6 @@ function Main({ onEditProfileClick, onAddPlaceClick, onEditAvatarClick }) {
           <button class="popup__button form__save-button" id="remove_card">
             S&iacute;
           </button>
-        </div>
-      </div> */}
-
-      {/* <div class="popup" id="popup-image">
-        <div class="popup__container-images">
-          <button
-            class="popup__exit-button"
-            type="button"
-            id="form__exit-button"
-          ></button>
-          <img class="popup__img" id="popup__image" src="#" alt="" />
-          <h3 class="popup__text" id="popup__caption"></h3>
         </div>
       </div> */}
     </main>

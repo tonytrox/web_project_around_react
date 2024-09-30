@@ -5,11 +5,13 @@ import Header from "./components/Header.jsx";
 import Main from "./components/Main.jsx";
 import Footer from "./components/Footer.jsx";
 import PopupWithForm from "./components/PopupWithForm.jsx";
+import ImagePopup from "./components/ImagePopup.jsx";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   // Manejadores de eventos para abrir y cerrar los formularios
   const handleEditAvatarClick = () => {
@@ -24,10 +26,15 @@ function App() {
     setIsAddPlacePopupOpen(true);
   };
 
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
+  };
+
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard(null);
   };
 
   // inserta los {children} de los formularios en el DOM
@@ -38,6 +45,7 @@ function App() {
         onEditAvatarClick={handleEditAvatarClick}
         onEditProfileClick={handleEditProfileClick}
         onAddPlaceClick={handleAddPlaceClick}
+        onCardClick={handleCardClick}
       />
       <Footer />
       <PopupWithForm
@@ -116,6 +124,7 @@ function App() {
         />
         <span className="popup__error form__image-link-error"></span>
       </PopupWithForm>
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </div>
   );
 }

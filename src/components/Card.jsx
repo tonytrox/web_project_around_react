@@ -1,15 +1,19 @@
-function Card({ name, link, likes }) {
+function Card({ name, link, likes, onCardClick, card }) {
+  function handleClick() {
+    onCardClick(card);
+  }
+
   return (
-    <li class="element__card">
-      <div class="element__container">
-        <img class="element__img" src={link} alt={name} />
-        <div class="element__description">
-          <h2 class="element__text">{name}</h2>
-          <div class="element__container-like">
-            <button class="element__like-button"></button>
-            <p class="element__counter">{likes.length}</p>
+    <li className="element__card" onClick={handleClick}>
+      <div className="element__container">
+        <img className="element__img" src={link} alt={name} />
+        <div className="element__description">
+          <h2 className="element__text">{name}</h2>
+          <div className="element__container-like">
+            <button className="element__like-button"></button>
+            <p className="element__counter">{likes.length}</p>
           </div>
-          <button class="element__remove-button"></button>
+          <button className="element__remove-button"></button>
         </div>
       </div>
     </li>
