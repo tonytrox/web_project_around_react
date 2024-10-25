@@ -1,6 +1,8 @@
 import api from "../utils/Api.js";
 import Card from "./Card.jsx";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+
+import { CurrentUserContext } from "../contexts/CurrentUserContext.jsx";
 
 function Main({
   onEditProfileClick,
@@ -8,24 +10,26 @@ function Main({
   onEditAvatarClick,
   onCardClick,
 }) {
-  const [userName, setUserName] = useState("");
-  const [userDescription, setUserDescription] = useState("");
-  const [userAvatar, setUserAvatar] = useState("");
+  // const [userName, setUserName] = useState("");
+  // const [userDescription, setUserDescription] = useState("");
+  // const [userAvatar, setUserAvatar] = useState("");
   const [cards, setCards] = useState([]);
 
-  useEffect(() => {
-    const getUserInfo = async () => {
-      try {
-        const user = await api.getInfoProfile();
-        setUserName(user.name);
-        setUserDescription(user.about);
-        setUserAvatar(user.avatar);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getUserInfo();
-  }, []); // El array vacío asegura que solo se ejecute una vez al montar el componente.
+  const currentUser = useContext(CurrentUserContext);
+
+  // useEffect(() => {
+  //   const getUserInfo = async () => {
+  //     try {
+  //       const user = await api.getInfoProfile();
+  //       setUserName(user.name);
+  //       setUserDescription(user.about);
+  //       setUserAvatar(user.avatar);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   getUserInfo();
+  // }, []); // El array vacío asegura que solo se ejecute una vez al montar el componente.
 
   useEffect(() => {
     const getInitialCards = async () => {
@@ -47,7 +51,7 @@ function Main({
         <div className="avatar__container">
           <img
             className="avatar__image"
-            src={userAvatar}
+            src={currentUser.avatar}
             alt="profile avatar"
           ></img>
           <div
@@ -57,8 +61,8 @@ function Main({
         </div>
 
         <div className="profile__info">
-          <h1 className="profile__title">{userName}</h1>
-          <h2 className="profile__description">{userDescription}</h2>
+          <h1 className="profile__title">{currentUser.name}</h1>
+          <h2 className="profile__description">{currentUser.about}</h2>
           <button
             onClick={onEditProfileClick}
             className="profile__edit-button"
