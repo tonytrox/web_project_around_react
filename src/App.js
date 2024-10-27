@@ -10,7 +10,7 @@ import PopupWithForm from "./components/PopupWithForm.jsx";
 import ImagePopup from "./components/ImagePopup.jsx";
 
 import { CurrentUserContext } from "./contexts/CurrentUserContext.jsx";
-º;
+
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
