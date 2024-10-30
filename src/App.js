@@ -31,7 +31,6 @@ function App() {
     fetchUserInfo();
   }, []); // El array vacío asegura que solo se ejecute una vez al montar el componente.
 
-  // Manejadores de eventos para abrir y cerrar modales
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
   };
@@ -43,11 +42,12 @@ function App() {
   const handleAddPlaceClick = () => {
     setIsAddPlacePopupOpen(true);
   };
-
-  const handleCardClick = (card) => {
-    setSelectedCard(card);
+  // Función para manejar el evento de hacer click en una tarjeta y guardarlo en el estado actual
+  const handleCardClick = (clickedCard) => {
+    setSelectedCard(clickedCard);
   };
 
+  // Función para cerrar todos los modales
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -61,6 +61,7 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
         <Main
+          // Esto permitirá que los controladores de eventos puedan seguir siendo llamados desde Main
           onEditAvatarClick={handleEditAvatarClick}
           onEditProfileClick={handleEditProfileClick}
           onAddPlaceClick={handleAddPlaceClick}

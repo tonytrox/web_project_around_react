@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.jsx";
 
-function Card({ name, link, likes, onCardClick, card }) {
+function Card({ onCardClick, card }) {
+  // recibe una tarjeta (card) y un callback (function onCardClick)
   const currentUser = useContext(CurrentUserContext);
 
   // Verificando si el usuario actual es el propietario de la tarjeta actual
@@ -25,12 +26,12 @@ function Card({ name, link, likes, onCardClick, card }) {
   return (
     <li className="element__card" onClick={handleClick}>
       <div className="element__container">
-        <img className="element__img" src={link} alt={name} />
+        <img className="element__img" src={card.link} alt={card.name} />
         <div className="element__description">
-          <h2 className="element__text">{name}</h2>
+          <h2 className="element__text">{card.name}</h2>
           <div className="element__container-like">
             <button className="element__like-button"></button>
-            <p className="element__counter">{likes.length}</p>
+            <p className="element__counter">{card.likes.length}</p>
           </div>
           <button className={cardDeleteButtonClassName}></button>
         </div>

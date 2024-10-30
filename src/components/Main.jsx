@@ -76,13 +76,7 @@ function Main({
       <section className="elements">
         <ul className="elements__list">
           {cards.map((card) => (
-            <Card
-              name={card.name}
-              link={card.link}
-              likes={card.likes}
-              onCardClick={onCardClick}
-              card={card}
-            />
+            <Card key={card.id} card={card} onCardClick={onCardClick} /> // pasando props a cada elemento de la lista
           ))}
         </ul>
       </section>
