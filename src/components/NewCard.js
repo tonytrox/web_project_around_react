@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-import PopupWithForm from "./Popup.jsx";
+import PopupWithForm from "./Popup.js";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
   const nameRef = useRef();

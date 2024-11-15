@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
-import PopupWithForm from "./Popup.jsx";
+import PopupWithForm from "./Popup.js";
 
 function EditProfilePopup({ isOpen, onClose }) {
   const currentUser = useContext(CurrentUserContext); // Obtiene el objeto currentUser
