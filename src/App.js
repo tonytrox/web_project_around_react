@@ -9,6 +9,7 @@ import Footer from "./components/Footer.jsx";
 import PopupWithForm from "./components/PopupWithForm.jsx";
 import EditProfilePopup from "./components/EditProfilePopup.jsx";
 import ImagePopup from "./components/ImagePopup.jsx";
+import EditAvatarPopup from "./components/EditAvatarPopup.jsx";
 
 import { CurrentUserContext } from "./contexts/CurrentUserContext.jsx";
 
@@ -35,6 +36,15 @@ function App() {
   const handleUpdateProfile = async (data) => {
     try {
       const newData = await api.updateProfile(data.name, data.about);
+      setCurrentUser(newData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleUpdateAvatar = async (data) => {
+    try {
+      const newData = await api.updateAvatar(data.avatar);
       setCurrentUser(newData);
     } catch (err) {
       console.log(err);
@@ -78,29 +88,18 @@ function App() {
           onEditProfileClick={handleEditProfileClick}
           onAddPlaceClick={handleAddPlaceClick}
           onCardClick={handleCardClick}
+          onUpdateAvatar={handleUpdateAvatar}
         ></Main>
         <Footer />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
         />
-        <PopupWithForm
-          name="edit-avatar"
-          title="Cambiar foto de perfil"
-          onClose={closeAllPopups}
+        <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
-          sendButtonText="Guardar"
-        >
-          <input
-            className="form__image-link popup__input"
-            id="form__image-link"
-            type="url"
-            name="link"
-            placeholder="Enlace de la imagen"
-            required
-          />
-          <span className="popup__error form__image-link-error"></span>
-        </PopupWithForm>
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+        />
         <PopupWithForm
           name="add-place"
           title="Nuevo lugar"
