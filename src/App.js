@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 
 import api from "./utils/Api.js";
 
-import Header from "./components/Header.jsx";
-import Main from "./components/Main.jsx";
-import Footer from "./components/Footer.jsx";
+import Header from "./components/Header.js";
+import Main from "./components/Main.js";
+import Footer from "./components/Footer.js";
 import Popup from "./components/Popup.js";
 import EditProfile from "./components/EditProfile.js";
 import ImagePopup from "./components/ImagePopup.jsx";
