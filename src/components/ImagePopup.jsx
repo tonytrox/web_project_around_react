@@ -1,7 +1,7 @@
 function ImagePopup({ card, onClose }) {
   return (
     <div className={`popup ${card ? "popup_opened" : ""}`} id="popup-image">
-      <div class="popup__container-images">
+      <div className="popup__container-images">
         <button
           className="popup__exit-button"
           type="button"

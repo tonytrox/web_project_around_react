@@ -38,8 +38,8 @@ function EditProfilePopup({ isOpen, onClose }) {
         type="text"
         name="name"
         placeholder="Nombre"
-        maxlength="40"
-        minlength="2"
+        maxLength="40"
+        minLength="2"
         required
         value={name}
         onChange={handleNameChange}
@@ -51,8 +51,8 @@ function EditProfilePopup({ isOpen, onClose }) {
         type="text"
         name="description"
         placeholder="Descripción"
-        maxlength="200"
-        minlength="2"
+        maxLength="200"
+        minLength="2"
         required
         value={description}
         onChange={handleDescriptionChange}

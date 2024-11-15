@@ -17,12 +17,12 @@ function PopupWithForm({
           className="form popup__form"
           id={`form_${name}`}
           onSubmit={onSubmitForm}
-          novalidate
+          noValidate
         >
           <button
             onClick={onClose}
             type="button"
-            class="form__exit-button"
+            className="form__exit-button"
             id="form__exit-button"
           ></button>
           <h2 className="form__title">{title}</h2>

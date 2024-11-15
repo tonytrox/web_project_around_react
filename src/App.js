@@ -10,6 +10,7 @@ import PopupWithForm from "./components/PopupWithForm.jsx";
 import EditProfilePopup from "./components/EditProfilePopup.jsx";
 import ImagePopup from "./components/ImagePopup.jsx";
 import EditAvatarPopup from "./components/EditAvatarPopup.jsx";
+import AddPlacePopup from "./components/AddPlacePopup.jsx";
 
 import { CurrentUserContext } from "./contexts/CurrentUserContext.jsx";
 
@@ -20,6 +21,8 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
 
   const [currentUser, setCurrentUser] = useState({});
+
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -32,6 +35,40 @@ function App() {
     };
     fetchUserInfo();
   }, []); // El array vacío asegura que solo se ejecute una vez al montar el componente.
+
+  useEffect(() => {
+    const getInitialCards = async () => {
+      try {
+        const cards = await api.getInitialCards();
+        setCards(cards);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getInitialCards();
+  }, []);
+
+  function handleCardLike(card) {
+    // Verifica una vez más si a esta tarjeta ya le han dado like
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+    // Envía una petición a la API y obtén los datos actualizados de la tarjeta
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+    });
+  }
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id).then(() => {
+      setCards((state) => state.filter((c) => c._id !== card._id));
+    });
+  }
+
+  function handleAddPlaceSubmit(data) {
+    api.postCard(data.name, data.link).then((newCard) => {
+      setCards((state) => [...state, newCard]);
+    });
+  }
 
   const handleUpdateProfile = async (data) => {
     try {
@@ -89,6 +126,9 @@ function App() {
           onAddPlaceClick={handleAddPlaceClick}
           onCardClick={handleCardClick}
           onUpdateAvatar={handleUpdateAvatar}
+          cards={cards}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
         ></Main>
         <Footer />
         <EditProfilePopup
@@ -100,34 +140,11 @@ function App() {
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
         />
-        <PopupWithForm
-          name="add-place"
-          title="Nuevo lugar"
-          onClose={closeAllPopups}
+        <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
-          sendButtonText="Crear"
-        >
-          <input
-            className="form__place popup__input"
-            id="form__place"
-            type="text"
-            name="place"
-            placeholder="Título"
-            minlength="2"
-            maxlength="30"
-            required
-          />
-          <span className="popup__error form__place-error"></span>
-          <input
-            className="form__image-link popup__input"
-            id="form__image-link"
-            type="url"
-            name="link"
-            placeholder="Enlace de la imagen"
-            required
-          />
-          <span className="popup__error form__image-link-error"></span>
-        </PopupWithForm>
+          onClose={closeAllPopups}
+          onAddPlaceSubmit={handleAddPlaceSubmit}
+        />
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       </CurrentUserContext.Provider>
     </div>
