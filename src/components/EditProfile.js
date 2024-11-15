@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
-import PopupWithForm from "./Popup.js";
+import Popup from "./Popup.js";
 
-function EditProfilePopup({ isOpen, onClose }) {
+function EditProfile({ isOpen, onClose }) {
   const currentUser = useContext(CurrentUserContext); // Obtiene el objeto currentUser
 
   const [name, setname] = useState("");
@@ -24,7 +24,7 @@ function EditProfilePopup({ isOpen, onClose }) {
   }
 
   return (
-    <PopupWithForm
+    <Popup
       name="edit-profile"
       title="Editar perfil"
       onClose={onClose}
@@ -58,8 +58,8 @@ function EditProfilePopup({ isOpen, onClose }) {
         onChange={handleDescriptionChange}
       />
       <span className="popup__error form__description-error"></span>
-    </PopupWithForm>
+    </Popup>
   );
 }
 
-export default EditProfilePopup;
+export default EditProfile;

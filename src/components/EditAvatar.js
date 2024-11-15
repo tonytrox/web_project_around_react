@@ -1,9 +1,9 @@
 import { useRef } from "react";
 // import { useContext } from "react";
 // import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
-import PopupWithForm from "./Popup.js";
+import Popup from "./Popup.js";
 
-function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
+function EditAvatar({ isOpen, onClose, onUpdateAvatar }) {
   //   const currentUser = useContext(CurrentUserContext);
   const avatarRef = useRef();
 
@@ -17,7 +17,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   }
 
   return (
-    <PopupWithForm
+    <Popup
       name="edit-avatar"
       title="Cambiar foto de perfil"
       onClose={onClose}
@@ -35,8 +35,8 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
         ref={avatarRef}
       />
       <span className="popup__error form__image-link-error"></span>
-    </PopupWithForm>
+    </Popup>
   );
 }
 
-export default EditAvatarPopup;
+export default EditAvatar;

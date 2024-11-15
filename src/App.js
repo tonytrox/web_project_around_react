@@ -6,18 +6,18 @@ import api from "./utils/Api.js";
 import Header from "./components/Header.jsx";
 import Main from "./components/Main.jsx";
 import Footer from "./components/Footer.jsx";
-import PopupWithForm from "./components/Popup.js";
-import EditProfilePopup from "./components/EditProfile.js";
+import Popup from "./components/Popup.js";
+import EditProfile from "./components/EditProfile.js";
 import ImagePopup from "./components/ImagePopup.jsx";
-import EditAvatarPopup from "./components/EditAvatar.js";
-import AddPlacePopup from "./components/NewCard.js";
+import EditAvatar from "./components/EditAvatar.js";
+import NewCard from "./components/NewCard.js";
 
 import { CurrentUserContext } from "./contexts/CurrentUserContext.js";
 
 function App() {
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarOpen, setIsEditAvatarOpen] = useState(false);
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const [isNewCardOpen, setIsNewCardOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
 
   const [currentUser, setCurrentUser] = useState({});
@@ -89,15 +89,15 @@ function App() {
   };
 
   const handleEditAvatarClick = () => {
-    setIsEditAvatarPopupOpen(true);
+    setIsEditAvatarOpen(true);
   };
 
   const handleEditProfileClick = () => {
-    setIsEditProfilePopupOpen(true);
+    setIsEditProfileOpen(true);
   };
 
   const handleAddPlaceClick = () => {
-    setIsAddPlacePopupOpen(true);
+    setIsNewCardOpen(true);
   };
   // Función para manejar el evento de hacer click en una tarjeta y guardarlo en el estado actual
   const handleCardClick = (clickedCard) => {
@@ -106,9 +106,9 @@ function App() {
 
   // Función para cerrar todos los modales
   const closeAllPopups = () => {
-    setIsEditAvatarPopupOpen(false);
-    setIsEditProfilePopupOpen(false);
-    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarOpen(false);
+    setIsEditProfileOpen(false);
+    setIsNewCardOpen(false);
     setSelectedCard(null);
   };
 
@@ -131,17 +131,14 @@ function App() {
           onCardDelete={handleCardDelete}
         ></Main>
         <Footer />
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-        />
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
+        <EditProfile isOpen={isEditProfileOpen} onClose={closeAllPopups} />
+        <EditAvatar
+          isOpen={isEditAvatarOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
         />
-        <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
+        <NewCard
+          isOpen={isNewCardOpen}
           onClose={closeAllPopups}
           onAddPlaceSubmit={handleAddPlaceSubmit}
         />

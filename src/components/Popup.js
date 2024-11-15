@@ -1,4 +1,4 @@
-function PopupWithForm({
+function Popup({
   isOpen,
   onClose,
   name,
@@ -36,4 +36,4 @@ function PopupWithForm({
   );
 }
 
-export default PopupWithForm;
+export default Popup;

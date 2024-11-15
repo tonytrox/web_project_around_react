@@ -1,8 +1,8 @@
 import { useRef } from "react";
 
-import PopupWithForm from "./Popup.js";
+import Popup from "./Popup.js";
 
-function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
+function NewCard({ isOpen, onClose, onAddPlaceSubmit }) {
   const nameRef = useRef();
   const linkRef = useRef();
 
@@ -17,7 +17,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
   }
 
   return (
-    <PopupWithForm
+    <Popup
       name="add-place"
       title="Nuevo lugar"
       onClose={onClose}
@@ -47,8 +47,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
         ref={linkRef}
       />
       <span className="popup__error form__image-link-error"></span>
-    </PopupWithForm>
+    </Popup>
   );
 }
 
-export default AddPlacePopup;
+export default NewCard;
