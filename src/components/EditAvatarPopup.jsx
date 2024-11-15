@@ -1,6 +1,6 @@
 import { useRef } from "react";
 // import { useContext } from "react";
-// import { CurrentUserContext } from "../contexts/CurrentUserContext.jsx";
+// import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import PopupWithForm from "./PopupWithForm.jsx";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
