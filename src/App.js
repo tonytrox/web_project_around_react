@@ -6,11 +6,11 @@ import api from "./utils/Api.js";
 import Header from "./components/Header.jsx";
 import Main from "./components/Main.jsx";
 import Footer from "./components/Footer.jsx";
-import PopupWithForm from "./components/PopupWithForm.jsx";
-import EditProfilePopup from "./components/EditProfilePopup.jsx";
+import PopupWithForm from "./components/Popup.jsx";
+import EditProfilePopup from "./components/EditProfile.jsx";
 import ImagePopup from "./components/ImagePopup.jsx";
-import EditAvatarPopup from "./components/EditAvatarPopup.jsx";
-import AddPlacePopup from "./components/AddPlacePopup.jsx";
+import EditAvatarPopup from "./components/EditAvatar.jsx";
+import AddPlacePopup from "./components/NewCard.jsx";
 
 import { CurrentUserContext } from "./contexts/CurrentUserContext.js";
 
