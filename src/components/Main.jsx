@@ -1,8 +1,7 @@
-import api from "../utils/Api.js";
 import Card from "./Card.jsx";
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 
-import { CurrentUserContext } from "../contexts/CurrentUserContext.jsx";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 function Main({
   onEditProfileClick,

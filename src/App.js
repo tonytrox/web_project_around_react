@@ -12,7 +12,7 @@ import ImagePopup from "./components/ImagePopup.jsx";
 import EditAvatarPopup from "./components/EditAvatarPopup.jsx";
 import AddPlacePopup from "./components/AddPlacePopup.jsx";
 
-import { CurrentUserContext } from "./contexts/CurrentUserContext.jsx";
+import { CurrentUserContext } from "./contexts/CurrentUserContext.js";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);

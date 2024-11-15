@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CurrentUserContext } from "../contexts/CurrentUserContext.jsx";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 // recibe una tarjeta (card) y un callback (function onCardClick)
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
