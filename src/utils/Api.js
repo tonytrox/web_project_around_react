@@ -80,6 +80,14 @@ class Api {
       }),
     }).then((res) => res.json());
   }
+
+  changeLikeCardStatus(cardId, isLiked) {
+    if (isLiked) {
+      return this.putLikesCard(cardId);
+    } else {
+      return this.removeLikesCard(cardId);
+    }
+  }
 }
 
 const api = new Api({

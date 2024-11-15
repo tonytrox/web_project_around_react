@@ -7,6 +7,7 @@ import Header from "./components/Header.jsx";
 import Main from "./components/Main.jsx";
 import Footer from "./components/Footer.jsx";
 import PopupWithForm from "./components/PopupWithForm.jsx";
+import EditProfilePopup from "./components/EditProfilePopup.jsx";
 import ImagePopup from "./components/ImagePopup.jsx";
 
 import { CurrentUserContext } from "./contexts/CurrentUserContext.jsx";
@@ -22,14 +23,23 @@ function App() {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const userInfo = await api.getInfoProfile();
-        setCurrentUser(userInfo);
+        const getUserInfo = await api.getInfoProfile();
+        setCurrentUser(getUserInfo);
       } catch (err) {
         console.log(err);
       }
     };
     fetchUserInfo();
   }, []); // El array vacío asegura que solo se ejecute una vez al montar el componente.
+
+  const handleUpdateProfile = async (data) => {
+    try {
+      const newData = await api.updateProfile(data.name, data.about);
+      setCurrentUser(newData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
@@ -58,7 +68,9 @@ function App() {
   // inserta los {children} de los formularios en el DOM
   return (
     <div className="page__container">
-      <CurrentUserContext.Provider value={currentUser}>
+      <CurrentUserContext.Provider
+        value={{ ...currentUser, handleUpdateProfile }} // {...} propaga todas las propiedades de currentUser
+      >
         <Header />
         <Main
           // Esto permitirá que los controladores de eventos puedan seguir siendo llamados desde Main
@@ -68,6 +80,10 @@ function App() {
           onCardClick={handleCardClick}
         ></Main>
         <Footer />
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+        />
         <PopupWithForm
           name="edit-avatar"
           title="Cambiar foto de perfil"
@@ -85,37 +101,6 @@ function App() {
           />
           <span className="popup__error form__image-link-error"></span>
         </PopupWithForm>
-        <PopupWithForm
-          name="edit-profile"
-          title="Editar perfil"
-          onClose={closeAllPopups}
-          isOpen={isEditProfilePopupOpen}
-          sendButtonText="Guardar"
-        >
-          <input
-            className="form__name popup__input"
-            id="form__name"
-            type="text"
-            name="name"
-            placeholder="Nombre"
-            maxlength="40"
-            minlength="2"
-            required
-          />
-          <span className="popup__error form__name-error"></span>
-          <input
-            className="form__description popup__input"
-            id="form__description"
-            type="text"
-            name="description"
-            placeholder="Descripción"
-            maxlength="200"
-            minlength="2"
-            required
-          />
-          <span className="popup__error form__description-error"></span>
-        </PopupWithForm>
-
         <PopupWithForm
           name="add-place"
           title="Nuevo lugar"

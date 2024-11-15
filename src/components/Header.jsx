@@ -4,7 +4,7 @@ function Header() {
   return (
     <header className="header">
       <img
-        classNamne="header__logo"
+        className="header__logo"
         src={logo}
         alt="logo around the world USA"
       ></img>

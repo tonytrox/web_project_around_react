@@ -5,6 +5,7 @@ function PopupWithForm({
   title,
   children,
   sendButtonText,
+  onSubmitForm,
 }) {
   return (
     <div
@@ -12,7 +13,12 @@ function PopupWithForm({
       id={`popup-${name}`}
     >
       <div className="popup__container">
-        <form className="form popup__form" id={`form_${name}`} novalidate>
+        <form
+          className="form popup__form"
+          id={`form_${name}`}
+          onSubmit={onSubmitForm}
+          novalidate
+        >
           <button
             onClick={onClose}
             type="button"

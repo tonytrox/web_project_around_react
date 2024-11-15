@@ -10,26 +10,9 @@ function Main({
   onEditAvatarClick,
   onCardClick,
 }) {
-  // const [userName, setUserName] = useState("");
-  // const [userDescription, setUserDescription] = useState("");
-  // const [userAvatar, setUserAvatar] = useState("");
   const [cards, setCards] = useState([]);
 
   const currentUser = useContext(CurrentUserContext);
-
-  // useEffect(() => {
-  //   const getUserInfo = async () => {
-  //     try {
-  //       const user = await api.getInfoProfile();
-  //       setUserName(user.name);
-  //       setUserDescription(user.about);
-  //       setUserAvatar(user.avatar);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   getUserInfo();
-  // }, []); // El array vacío asegura que solo se ejecute una vez al montar el componente.
 
   useEffect(() => {
     const getInitialCards = async () => {
@@ -43,7 +26,21 @@ function Main({
     getInitialCards();
   }, []);
 
-  // Función para renderizar las tarjetas
+  function handleCardLike(card) {
+    // Verifica una vez más si a esta tarjeta ya le han dado like
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+    // Envía una petición a la API y obtén los datos actualizados de la tarjeta
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+    });
+  }
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id).then(() => {
+      setCards((state) => state.filter((c) => c._id !== card._id));
+    });
+  }
 
   return (
     <main className="content">
@@ -73,10 +70,17 @@ function Main({
           className="profile__add-button"
         ></button>
       </section>
+
       <section className="elements">
         <ul className="elements__list">
           {cards.map((card) => (
-            <Card key={card.id} card={card} onCardClick={onCardClick} /> // pasando props a cada elemento de la lista
+            <Card
+              key={card.id}
+              card={card}
+              onCardClick={onCardClick}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+            /> // pasando props a cada elemento de la lista
           ))}
         </ul>
       </section>
