@@ -42,6 +42,12 @@
   border-radius: 0px;
 }
 
+.element__container-like {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .element__like-button {
   background: url(../images/heart_icon.svg) center no-repeat;
   min-height: 19px;
@@ -58,6 +64,18 @@
   transition: 0.1s;
   opacity: 1;
   background: url(https://practicum-content.s3.us-west-1.amazonaws.com/web-code/dom/moved_heart-filled.svg) center no-repeat;
+}
+
+.element__counter {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  color: #000000;
+  margin: auto;
+  padding-top: 3px;
 }
 
 .elements__list {
@@ -103,14 +121,4 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-}
-
-.element__text_popup {
-  margin: 0px;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 14px;
-  padding-top: 10px;
 }

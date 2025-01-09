@@ -11,16 +11,6 @@
   }
 }
 
-/* formulario de creacion de perfiles */
-#form_edit-profile {
-  /* display: none; */
-}
-
-/* formulario de creacion de elementos */
-#form_add-element {
-  /* display: none; */
-}
-
 .form__description {
   width: 236px;
   height: 27px;
@@ -30,14 +20,14 @@
   font-weight: 400;
   line-height: normal;
   border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   opacity: 0.8;
 }
 
-.form__description:invalid {
+/* .form__description:invalid {
   border-bottom: 1px solid red;
-}
+} */
 
 @media screen and (min-width: 720px) {
   .form__description {
@@ -82,7 +72,7 @@
   font-weight: 400;
   line-height: normal;
   border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   opacity: 0.8;
 }
@@ -96,14 +86,14 @@
   line-height: normal;
   margin-top: 75px;
   border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   opacity: 0.8;
 }
 
-.form__name:invalid {
+/* .form__name:invalid {
   border-bottom: 1px solid red;
-}
+} */
 
 @media screen and (min-width: 720px) {
   .form__name {
@@ -121,7 +111,7 @@
   line-height: normal;
   margin-top: 75px;
   border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   opacity: 0.8;
 }
@@ -138,10 +128,10 @@
   font-weight: 400;
   font-size: 14px;
   line-height: normal;
-  width: 238px;
+  min-width: 238px;
   height: 46px;
-  margin-top: 48px;
-  color: #FFFFFF;
+  margin-top: 45px;
+  color: #ffffff;
   background-color: #000000;
   border-radius: 2px;
   display: flex;
@@ -152,14 +142,14 @@
 }
 
 .form__save-button:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 @media screen and (min-width: 720px) {
   .form__save-button {
     width: 358px;
     height: 50px;
-    margin-top: 45px;
+    margin-top: 48px;
   }
 }
 
