@@ -4,6 +4,7 @@ import EditAvatar from "./components/Popup/form/EditAvatar/EditAvatar";
 import NewCard from "./components/Popup/form/NewCard/NewCard";
 import EditProfile from "./components/Popup/form/EditProfile/EditProfile";
 import Card from "./components/Card/Card";
+import ImagePopup from "./components/ImagePopup/ImagePopup";
 
 import { useState } from "react";
 
@@ -30,6 +31,7 @@ console.log(cards);
 
 export default function Main() {
   const [popup, setPopup] = useState(null);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   const NewCardPopup = {
     title: "Nuevo lugar",
@@ -45,11 +47,16 @@ export default function Main() {
   };
 
   function handleOpenPopup(popup) {
-    setPopup(popup);
+    if (popup.link) {
+      setSelectedCard(popup);
+    } else {
+      setPopup(popup);
+    }
   }
 
   function handleClosePopup() {
     setPopup(null);
+    setSelectedCard(null);
   }
 
   return (
@@ -92,7 +99,11 @@ export default function Main() {
       <section className="elements">
         <ul className="elements__list">
           {cards.map((card) => (
-            <Card key={card._id} card={card} />
+            <Card
+              key={card._id}
+              card={card}
+              handleOpenPopup={handleOpenPopup}
+            />
           ))}
         </ul>
       </section>
@@ -101,6 +112,7 @@ export default function Main() {
           {popup.children}
         </Popup>
       )}
+      <ImagePopup card={selectedCard} onClose={handleClosePopup} />
     </main>
   );
 }

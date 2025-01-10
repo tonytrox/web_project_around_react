@@ -1,11 +1,23 @@
 export default function Card(props) {
-  const { name, link, isLiked } = props.card;
+  const { handleOpenPopup } = props;
+  const { name, link } = props.card;
+
+  // Creando objeto con la imagen seleccionada
+  const imageComponent = {
+    name: name,
+    link: link,
+  };
 
   return (
     <>
       <li className="element__card">
         <div className="element__container">
-          <img className="element__img" src={link} alt={name} />
+          <img
+            className="element__img"
+            src={link}
+            alt={name}
+            onClick={() => handleOpenPopup(imageComponent)}
+          />
           <div className="element__description">
             <h2 className="element__text">{name}</h2>
             <div className="element__container-like">
