@@ -2,7 +2,7 @@ export default function Popup(props) {
   //los hijos son el contenido de la ventana emergente
   const { onClose, title, children } = props;
   return (
-    <div className="popup" id="popup-edit-profile">
+    <div className="popup popup_opened" id="popup-edit-profile">
       <div className="popup__container">
         <form className="form popup__form" id="form_edit-profile" noValidate>
           <button
