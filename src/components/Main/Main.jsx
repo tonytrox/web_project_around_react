@@ -1,13 +1,13 @@
+import { useState, useEffect, useContext } from "react";
 import api from "../../utils/api";
-import avatar from "../../images/avatar_jacques.png";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+// import avatar from "../../images/avatar_jacques.png";
 import Popup from "./components/Popup/Popup";
 import EditAvatar from "./components/Popup/form/EditAvatar/EditAvatar";
 import NewCard from "./components/Popup/form/NewCard/NewCard";
 import EditProfile from "./components/Popup/form/EditProfile/EditProfile";
 import Card from "./components/Card/Card";
 import ImagePopup from "./components/ImagePopup/ImagePopup";
-
-import { useState, useEffect } from "react";
 
 // const cards = [
 //   {
@@ -31,6 +31,8 @@ import { useState, useEffect } from "react";
 // console.log(cards);
 
 export default function Main() {
+  const currentUser = useContext(CurrentUserContext);
+
   const [popup, setPopup] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
   const [cards, setCards] = useState([]);
@@ -79,7 +81,7 @@ export default function Main() {
         <div className="avatar__container">
           <img
             className="avatar__image"
-            src={avatar}
+            src={currentUser?.avatar}
             alt="profile avatar"
           ></img>
           <div
@@ -92,7 +94,7 @@ export default function Main() {
         </div>
 
         <div className="profile__info">
-          <h1 className="profile__title">Jacques Cousteau</h1>
+          <h1 className="profile__title">{currentUser?.name}</h1>
           <button
             className="profile__edit-button"
             type="botton"
@@ -100,7 +102,7 @@ export default function Main() {
               handleOpenPopup(EditProfilePopup);
             }}
           ></button>
-          <h2 className="profile__description">Explorer</h2>
+          <h2 className="profile__description">{currentUser?.about}</h2>
         </div>
         <button
           className="profile__add-button"

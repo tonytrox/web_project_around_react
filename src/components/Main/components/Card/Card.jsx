@@ -1,5 +1,5 @@
 export default function Card(props) {
-  const { handleOpenPopup } = props;
+  const { handleOpenPopup, isLiked } = props;
   const { name, link } = props.card;
 
   // Creando objeto con la imagen seleccionada
@@ -7,6 +7,10 @@ export default function Card(props) {
     name: name,
     link: link,
   };
+
+  const cardLikeButtonClassName = `element__like-button ${
+    isLiked ? "element__like-button_active" : ""
+  }`;
 
   return (
     <>
@@ -21,7 +25,10 @@ export default function Card(props) {
           <div className="element__description">
             <h2 className="element__text">{name}</h2>
             <div className="element__container-like">
-              <button className="element__like-button" type="button"></button>
+              <button
+                className={cardLikeButtonClassName}
+                type="button"
+              ></button>
               {/* <p className="element__counter">{likes.length}</p> */}
             </div>
             <button className="element__remove-button" type="button"></button>
