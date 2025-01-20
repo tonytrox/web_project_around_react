@@ -1,6 +1,6 @@
 export default function Card(props) {
-  const { handleOpenPopup, isLiked } = props;
-  const { name, link } = props.card;
+  const { handleOpenPopup, isLiked, onCardLike, onCardDelete } = props;
+  const { name, link, _id } = props.card;
 
   // Creando objeto con la imagen seleccionada
   const imageComponent = {
@@ -11,6 +11,14 @@ export default function Card(props) {
   const cardLikeButtonClassName = `element__like-button ${
     isLiked ? "element__like-button_active" : ""
   }`;
+
+  function handleLikeClick() {
+    onCardLike(props.card); // Llamar a onCardLike pasando la tarjeta como argumento
+  }
+
+  function handleDeleteClick() {
+    onCardDelete(_id); // Llamar a onCardDelete pasando el id de la tarjeta como argumento
+  }
 
   return (
     <>
@@ -28,10 +36,15 @@ export default function Card(props) {
               <button
                 className={cardLikeButtonClassName}
                 type="button"
+                onClick={handleLikeClick}
               ></button>
               {/* <p className="element__counter">{likes.length}</p> */}
             </div>
-            <button className="element__remove-button" type="button"></button>
+            <button
+              className="element__remove-button"
+              type="button"
+              onClick={handleDeleteClick}
+            ></button>
           </div>
         </div>
       </li>

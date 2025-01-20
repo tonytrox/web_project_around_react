@@ -49,6 +49,32 @@ export default function Main() {
     getInitialCards();
   }, []);
 
+  async function handleCardLike(card) {
+    // Verifica una vez más si a esta tarjeta ya les has dado like
+    const isLiked = card.isLiked;
+
+    // Envía una solicitud a la API y obtén los datos actualizados de la tarjeta
+    await api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((currentCard) =>
+            currentCard._id === card._id ? newCard : currentCard
+          )
+        );
+      })
+      .catch((error) => console.error(error));
+  }
+
+  async function handleCardDelete(cardId) {
+    try {
+      await api.deleteCard(cardId);
+      setCards((state) => state.filter((card) => card._id !== cardId));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const NewCardPopup = {
     title: "Nuevo lugar",
     children: <NewCard />,
@@ -116,9 +142,12 @@ export default function Main() {
         <ul className="elements__list">
           {cards.map((card) => (
             <Card
+              // props de Card
               key={card._id}
               card={card}
               handleOpenPopup={handleOpenPopup}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
             />
           ))}
         </ul>
