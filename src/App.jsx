@@ -9,6 +9,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [popup, setPopup] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [cards, setCards] = useState([]);
 
   function handleOpenPopup(popup) {
     if (popup.link) {
@@ -49,6 +50,57 @@ function App() {
     })();
   };
 
+  // CARDS COMPONENT
+
+  useEffect(() => {
+    const getInitialCards = async () => {
+      try {
+        const cards = await api.getInitialCards();
+        setCards(cards);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getInitialCards();
+  }, []);
+
+  async function handleCardLike(card) {
+    // Verifica una vez más si a esta tarjeta ya les has dado like
+    const isLiked = card.isLiked;
+
+    // Envía una solicitud a la API y obtén los datos actualizados de la tarjeta
+    await api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((currentCard) =>
+            currentCard._id === card._id ? newCard : currentCard
+          )
+        );
+      })
+      .catch((error) => console.error(error));
+  }
+
+  async function handleCardDelete(cardId) {
+    try {
+      await api.deleteCard(cardId);
+      setCards((state) => state.filter((card) => card._id !== cardId));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  // Añadir función para manejar nueva tarjeta
+  const handleAddPlaceSubmit = async (name, link) => {
+    try {
+      const newCard = await api.postCard(name, link);
+      setCards([newCard, ...cards]);
+      handleClosePopup();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <CurrentUserContext.Provider
@@ -58,9 +110,13 @@ function App() {
           <Header />
           <Main
             selectedCard={selectedCard}
+            popup={popup}
             onOpenPopup={handleOpenPopup}
             onClosePopup={handleClosePopup}
-            popup={popup}
+            cards={cards}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
+            onAddPlace={handleAddPlaceSubmit}
           />
           <Footer />
         </div>
