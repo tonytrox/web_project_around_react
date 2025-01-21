@@ -1,6 +1,6 @@
 export default function Card(props) {
-  const { handleOpenPopup, isLiked, onCardLike, onCardDelete } = props;
-  const { name, link, _id } = props.card;
+  const { handleOpenPopup, onCardLike, onCardDelete } = props;
+  const { name, link, _id, isLiked } = props.card;
 
   // Creando objeto con la imagen seleccionada
   const imageComponent = {

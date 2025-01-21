@@ -1,15 +1,14 @@
 class Api {
   constructor() {
-    this._baseUrl = "https://around.nomoreparties.co/v1/web_es_10";
+    this._baseUrl = "https://around-api.es.tripleten-services.com/v1";
     this._headers = {
       "content-type": "application/json",
-      Authorization: "d1315ee3-c0aa-41a4-8107-d76afccb8021",
+      Authorization: "b618c936-6ee8-401d-bb34-9c0666b34a28",
     };
-    // this._userId = "d1315ee3c0aa41a48107d76afccb8021";
-    this._userId = "3b1c7f7a9ba36cb4ce8e9c33";
+    // this._userId = "083fa68507b84f2fe2bf894a";
   }
 
-  getInfoProfile() {
+  getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
       headers: this._headers,
@@ -57,7 +56,7 @@ class Api {
 
   putLikesCard(cardId) {
     console.log("put Likes");
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
     }).then((res) => res.json());
@@ -65,7 +64,7 @@ class Api {
 
   removeLikesCard(cardId) {
     console.log("remove Likes");
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
     }).then((res) => res.json());
@@ -91,8 +90,8 @@ class Api {
 }
 
 const api = new Api({
-  address: "https://around.nomoreparties.co/v1/web_es_10",
-  token: "d1315ee3-c0aa-41a4-8107-d76afccb8021",
+  address: "https://around-api.es.tripleten-services.com/v1",
+  token: "b618c936-6ee8-401d-bb34-9c0666b34a28",
 });
 
 export default api;

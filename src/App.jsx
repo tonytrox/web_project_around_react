@@ -6,26 +6,53 @@ import Main from "./components/Main/Main";
 import Footer from "./components/Footer/Footer";
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
+  const [popup, setPopup] = useState(null);
+  const [selectedCard, setSelectedCard] = useState(null);
+
+  function handleOpenPopup(popup) {
+    if (popup.link) {
+      setSelectedCard(popup);
+    } else {
+      setPopup(popup);
+    }
+  }
+
+  function handleClosePopup() {
+    setPopup(null);
+    setSelectedCard(null);
+  }
 
   useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const getUserInfo = await api.getInfoProfile();
-        setCurrentUser(getUserInfo);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchUserInfo();
+    (async () => {
+      await api.getUserInfo().then((data) => {
+        setCurrentUser(data);
+      });
+    })();
   }, []);
+
+  const handleUpdateUser = (data) => {
+    (async () => {
+      await api.updateProfile(data.name, data.description).then((newData) => {
+        setCurrentUser(newData);
+        handleClosePopup();
+      });
+    })();
+  };
 
   return (
     <>
-      <CurrentUserContext.Provider value={currentUser}>
-        <Header />
-        <Main />
-        <Footer />
+      <CurrentUserContext.Provider value={{ currentUser, handleUpdateUser }}>
+        <div>
+          <Header />
+          <Main
+            selectedCard={selectedCard}
+            onOpenPopup={handleOpenPopup}
+            onClosePopup={handleClosePopup}
+            popup={popup}
+          />
+          <Footer />
+        </div>
       </CurrentUserContext.Provider>
     </>
   );

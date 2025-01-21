@@ -30,11 +30,10 @@ import ImagePopup from "./components/ImagePopup/ImagePopup";
 
 // console.log(cards);
 
-export default function Main() {
-  const currentUser = useContext(CurrentUserContext);
+export default function Main(props) {
+  const { popup, selectedCard, onOpenPopup, onClosePopup } = props;
+  const { currentUser } = useContext(CurrentUserContext);
 
-  const [popup, setPopup] = useState(null);
-  const [selectedCard, setSelectedCard] = useState(null);
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
@@ -88,19 +87,6 @@ export default function Main() {
     children: <EditAvatar />,
   };
 
-  function handleOpenPopup(popup) {
-    if (popup.link) {
-      setSelectedCard(popup);
-    } else {
-      setPopup(popup);
-    }
-  }
-
-  function handleClosePopup() {
-    setPopup(null);
-    setSelectedCard(null);
-  }
-
   return (
     <main className="content">
       <section className="profile">
@@ -112,7 +98,7 @@ export default function Main() {
           ></img>
           <div
             onClick={() => {
-              handleOpenPopup(EditAvatarPopup);
+              onOpenPopup(EditAvatarPopup);
             }}
             className="avatar__edit-button"
             type="button"
@@ -125,7 +111,7 @@ export default function Main() {
             className="profile__edit-button"
             type="botton"
             onClick={() => {
-              handleOpenPopup(EditProfilePopup);
+              onOpenPopup(EditProfilePopup);
             }}
           ></button>
           <h2 className="profile__description">{currentUser?.about}</h2>
@@ -134,7 +120,7 @@ export default function Main() {
           className="profile__add-button"
           type="button"
           onClick={() => {
-            handleOpenPopup(NewCardPopup);
+            onOpenPopup(NewCardPopup);
           }}
         ></button>
       </section>
@@ -145,7 +131,7 @@ export default function Main() {
               // props de Card
               key={card._id}
               card={card}
-              handleOpenPopup={handleOpenPopup}
+              handleOpenPopup={onOpenPopup}
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
             />
@@ -153,11 +139,11 @@ export default function Main() {
         </ul>
       </section>
       {popup && (
-        <Popup onClose={handleClosePopup} title={popup.title}>
+        <Popup onClose={onClosePopup} title={popup.title}>
           {popup.children}
         </Popup>
       )}
-      <ImagePopup card={selectedCard} onClose={handleClosePopup} />
+      <ImagePopup card={selectedCard} onClose={onClosePopup} />
     </main>
   );
 }
