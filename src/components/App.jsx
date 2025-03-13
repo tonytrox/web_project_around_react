@@ -6,7 +6,7 @@ import Main from "./Main/Main";
 import Footer from "./Footer/Footer";
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState({}); // estado del usuario actual
   const [popup, setPopup] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
   const [cards, setCards] = useState([]);
@@ -24,51 +24,80 @@ function App() {
     setSelectedCard(null);
   }
 
+  // useEffect, obtiene la información del usuario y lo guarda en el estado: currentUser
   useEffect(() => {
     (async () => {
-      await api.getUserInfo().then((data) => {
-        setCurrentUser(data);
-      });
+      await api
+        .getUserInfo()
+        .then((data) => {
+          setCurrentUser(data);
+        })
+        .catch((error) =>
+          console.error(
+            "Error al obtener la información del usuario:",
+            error.message || error
+          )
+        );
     })();
-  }, []);
+  }, []); // [] lo ejecutamos solo la primera vez
 
+  // Función para actualizar el perfil del usuario
   const handleUpdateUser = (data) => {
     (async () => {
-      await api.updateProfile(data.name, data.description).then((newData) => {
-        setCurrentUser(newData);
-        handleClosePopup();
-      });
+      await api
+        .updateProfile(data.name, data.description)
+        .then((newData) => {
+          setCurrentUser(newData);
+          handleClosePopup();
+        })
+        .catch((error) =>
+          console.error(
+            "Error al actualizar el perfil del usuario:",
+            error.message || error
+          )
+        );
     })();
   };
 
+  // Función para actualizar el avatar del usuario
   const handleUpdateAvatar = (data) => {
     (async () => {
-      await api.updateAvatar(data.avatar).then((newData) => {
-        setCurrentUser(newData);
-        handleClosePopup();
-      });
+      await api
+        .updateAvatar(data.avatar)
+        .then((newData) => {
+          setCurrentUser(newData);
+          handleClosePopup();
+        })
+        .catch((error) =>
+          console.error(
+            "Error al actualizar el avatar:",
+            error.message || error
+          )
+        );
     })();
   };
 
-  // CARDS COMPONENT
-
+  // Cargar tarjetas iniciales
   useEffect(() => {
     const getInitialCards = async () => {
       try {
         const cards = await api.getInitialCards();
         setCards(cards);
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.error(
+          "Error al obtener las tarjetas iniciales:",
+          error.message || error
+        );
       }
     };
     getInitialCards();
-  }, []);
+  }, []); // [] se ejecuta solo la primera vez
 
+  // Comprueba si le han dado like a la tarjeta
   async function handleCardLike(card) {
-    // Verifica una vez más si a esta tarjeta ya les has dado like
     const isLiked = card.isLiked;
 
-    // Envía una solicitud a la API y obtén los datos actualizados de la tarjeta
+    // Envía una solicitud a la API y obtiene la tarjeta actualizada
     await api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
@@ -78,50 +107,60 @@ function App() {
           )
         );
       })
-      .catch((error) => console.error(error));
+      .catch(
+        console.error(
+          "Error al cambiar el estado del like:",
+          error.message || error
+        )
+      );
   }
 
   async function handleCardDelete(cardId) {
     try {
       await api.deleteCard(cardId);
+      // Filtra las tarjetas para eliminar la que coincida con el ID
       setCards((state) => state.filter((card) => card._id !== cardId));
     } catch (error) {
-      console.error(error);
+      console.error("Error al eliminar la tarjeta:", error.message || error);
     }
   }
 
-  // Añadir función para manejar nueva tarjeta
+  // Función que agrega una nueva tarjeta
   const handleAddPlaceSubmit = async (name, link) => {
     try {
       const newCard = await api.postCard(name, link);
+      // Añadir la nueva tarjeta al inicio sin modificar la lista existente
       setCards([newCard, ...cards]);
       handleClosePopup();
     } catch (error) {
-      console.error(error);
+      console.error("Error al agregar la tarjeta:", error.message || error);
     }
   };
 
   return (
-    <>
-      <CurrentUserContext.Provider
-        value={{ currentUser, handleUpdateUser, handleUpdateAvatar }}
-      >
-        <div>
-          <Header />
-          <Main
-            selectedCard={selectedCard}
-            popup={popup}
-            onOpenPopup={handleOpenPopup}
-            onClosePopup={handleClosePopup}
-            cards={cards}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-            onAddPlace={handleAddPlaceSubmit}
-          />
-          <Footer />
-        </div>
-      </CurrentUserContext.Provider>
-    </>
+    // <>
+    // Paso 2: Proveer el Contexto
+    // Proveedor del contexto, pasamos el valor del usuario actual y las funciones de actualización
+    <CurrentUserContext.Provider
+      value={{ currentUser, handleUpdateUser, handleUpdateAvatar }}
+    >
+      <div>
+        <Header />
+        {/* Pasamos las props necesarias a Main */}
+        <Main
+          selectedCard={selectedCard}
+          popup={popup}
+          onOpenPopup={handleOpenPopup}
+          onClosePopup={handleClosePopup}
+          cards={cards}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
+          onAddPlace={handleAddPlaceSubmit}
+        />
+        <Footer />
+      </div>
+    </CurrentUserContext.Provider>
+    // </>
   );
 }
 

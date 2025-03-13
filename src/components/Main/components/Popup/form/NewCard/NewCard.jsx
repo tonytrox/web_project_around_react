@@ -12,7 +12,12 @@ export default function NewCard(props) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      className="form"
+      id="form_add-element"
+      onSubmit={handleSubmit}
+      noValidate
+    >
       <input
         className="form__place popup__input"
         id="form__place"

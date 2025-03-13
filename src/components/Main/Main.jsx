@@ -1,6 +1,6 @@
-import { useState, useEffect, useContext } from "react";
-import api from "../../utils/api";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext"; // importamos el contexto
+
 import Popup from "./components/Popup/Popup";
 import EditAvatar from "./components/Popup/form/EditAvatar/EditAvatar";
 import NewCard from "./components/Popup/form/NewCard/NewCard";
@@ -19,48 +19,11 @@ export default function Main(props) {
     onCardDelete,
     onAddPlace,
   } = props;
+
+  // Paso 3: Hacer uso del usuario actual derivado del contexto.
   const { currentUser } = useContext(CurrentUserContext);
 
-  // const [cards, setCards] = useState([]);
-
-  // useEffect(() => {
-  //   const getInitialCards = async () => {
-  //     try {
-  //       const cards = await api.getInitialCards();
-  //       setCards(cards);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   getInitialCards();
-  // }, []);
-
-  // async function handleCardLike(card) {
-  //   // Verifica una vez más si a esta tarjeta ya les has dado like
-  //   const isLiked = card.isLiked;
-
-  //   // Envía una solicitud a la API y obtén los datos actualizados de la tarjeta
-  //   await api
-  //     .changeLikeCardStatus(card._id, !isLiked)
-  //     .then((newCard) => {
-  //       setCards((state) =>
-  //         state.map((currentCard) =>
-  //           currentCard._id === card._id ? newCard : currentCard
-  //         )
-  //       );
-  //     })
-  //     .catch((error) => console.error(error));
-  // }
-
-  // async function handleCardDelete(cardId) {
-  //   try {
-  //     await api.deleteCard(cardId);
-  //     setCards((state) => state.filter((card) => card._id !== cardId));
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
+  // Define los popups que se mostrarán en la interfaz
   const NewCardPopup = {
     title: "Nuevo lugar",
     children: <NewCard onAddPlace={onAddPlace} />,
@@ -81,6 +44,7 @@ export default function Main(props) {
           <img
             className="avatar__image"
             src={currentUser?.avatar}
+            // Este operador permite acceder a la propiedad avatar de currentUser solo si currentUser no es null ni undefined. Si currentUser es null o undefined, la expresión devuelve undefined en lugar de lanzar un error.
             alt="profile avatar"
           ></img>
           <div
@@ -125,7 +89,7 @@ export default function Main(props) {
           ))}
         </ul>
       </section>
-      {popup && (
+      {popup && ( // Si popup es true, renderiza el componente Popup
         <Popup onClose={onClosePopup} title={popup.title}>
           {popup.children}
         </Popup>

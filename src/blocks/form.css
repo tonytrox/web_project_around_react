@@ -3,12 +3,7 @@
   flex-direction: column;
   justify-content: center;
   padding: 25px 22px 25px 22px;
-}
-
-@media screen and (min-width: 720px) {
-  .form {
-    padding: 34px 36px 36px 36px;
-  }
+  position: relative;
 }
 
 .form__description {
@@ -28,12 +23,6 @@
 /* .form__description:invalid {
   border-bottom: 1px solid red;
 } */
-
-@media screen and (min-width: 720px) {
-  .form__description {
-    width: 356px;
-  }
-}
 
 .form__exit-button {
   width: 26px;
@@ -55,13 +44,17 @@
   opacity: 0.6;
 }
 
-@media screen and (min-width: 720px) {
-  .form__exit-button {
-    width: 40px;
-    height: 40px;
-    bottom: calc(100% + 0px);
-    left: calc(100% + 0px);
-  }
+.form__avatar-link {
+  height: 27px;
+  margin-top: 64px;
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  opacity: 0.8;
 }
 
 .form__image-link {
@@ -93,14 +86,7 @@
 
 /* .form__name:invalid {
   border-bottom: 1px solid red;
-} */
-
-@media screen and (min-width: 720px) {
-  .form__name {
-    width: 358px;
-    margin-top: 54px;
-  }
-}
+  } */
 
 .form__place {
   width: 238px;
@@ -114,13 +100,6 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   opacity: 0.8;
-}
-
-@media screen and (min-width: 720px) {
-  .form__place {
-    width: 358px;
-    margin-top: 54px;
-  }
 }
 
 .form__save-button {
@@ -145,14 +124,6 @@
   opacity: 0.8;
 }
 
-@media screen and (min-width: 720px) {
-  .form__save-button {
-    width: 358px;
-    height: 50px;
-    margin-top: 48px;
-  }
-}
-
 .form__title {
   font-family: "Inter";
   font-size: 24px;
@@ -160,5 +131,44 @@
   line-height: normal;
   font-style: normal;
   color: #000000;
-  margin: 0;
+  margin: auto;
+  position: absolute;
+  padding: 25px 0px 0px 22px;
+}
+
+@media screen and (min-width: 720px) {
+  .form {
+    padding: 34px 36px 36px 36px;
+  }
+
+  .form__title {
+    padding: 34px 0px 0px 36px;
+  }
+
+  .form__description {
+    width: 356px;
+  }
+
+  .form__exit-button {
+    width: 40px;
+    height: 40px;
+    bottom: calc(100% + 0px);
+    left: calc(100% + 0px);
+  }
+
+  .form__name {
+    width: 358px;
+    margin-top: 54px;
+  }
+
+  .form__place {
+    width: 358px;
+    margin-top: 64px;
+  }
+
+  .form__save-button {
+    width: 358px;
+    height: 50px;
+    margin-top: 48px;
+  }
 }

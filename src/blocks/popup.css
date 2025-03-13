@@ -48,28 +48,21 @@
   padding: 34px 36px 36px 36px;
 }
 
-.popup__container-edit-avatar {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 10px;
-  background-color: #fff;
-}
-
 .popup__error {
-  width: 238px;
+  display: none;
+  /* width: 238px; */
+  /* border: solid 1px red; */
   color: red;
   font-family: "Inter";
   font-size: 12px;
   font-weight: 600;
 }
 
-@media screen and (min-width: 720px) {
+/* @media screen and (min-width: 720px) {
   .popup__error {
     width: 358px;
   }
-}
+} */
 
 .popup__image {
   position: fixed;

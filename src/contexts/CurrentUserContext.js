@@ -1,4 +1,5 @@
+// Creamos un contexto Global y lo exportamos
+// Paso 1: Crear el Contexto
 import { createContext } from "react";
 
-// Creamos y exportamos el contexto
 export const CurrentUserContext = createContext();

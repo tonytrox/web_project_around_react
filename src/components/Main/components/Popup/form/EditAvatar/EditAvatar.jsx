@@ -14,11 +14,16 @@ export default function EditAvatar() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      className="form"
+      id="form_add-element"
+      onSubmit={handleSubmit}
+      noValidate
+    >
       <>
         <input
           ref={avatarRef}
-          className="form__image-link popup__input"
+          className="form__avatar-link popup__input"
           id="form__image-link"
           type="url"
           name="link"
