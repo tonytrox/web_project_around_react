@@ -1,11 +1,10 @@
 class Api {
-  constructor() {
-    this._baseUrl = "https://around-api.es.tripleten-services.com/v1";
+  constructor({ address, token }) {
+    this._baseUrl = address;
     this._headers = {
       "content-type": "application/json",
-      Authorization: "b618c936-6ee8-401d-bb34-9c0666b34a28",
+      Authorization: token,
     };
-    // this._userId = "083fa68507b84f2fe2bf894a";
   }
 
   getUserInfo() {
